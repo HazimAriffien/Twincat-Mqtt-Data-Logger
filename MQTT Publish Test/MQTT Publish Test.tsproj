@@ -1,0 +1,926 @@
+<?xml version="1.0"?>
+<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.65">
+	<DataTypes>
+		<DataType>
+			<Name GUID="{773A0721-0680-A9F8-F5A5-C65F7E80A26F}" IecBaseType="true" AutoDeleteType="true">ARRAY [0..1] OF BYTE</Name>
+			<BitSize>16</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000001}">BYTE</BaseType>
+			<ArrayInfo>
+				<LBound>0</LBound>
+				<Elements>2</Elements>
+			</ArrayInfo>
+		</DataType>
+		<DataType>
+			<Name GUID="{18071995-0000-0000-0000-00200000001F}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..30] OF BIT</Name>
+			<BitSize>31</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000010}">BIT</BaseType>
+			<ArrayInfo>
+				<LBound>0</LBound>
+				<Elements>31</Elements>
+			</ArrayInfo>
+		</DataType>
+	</DataTypes>
+	<Project ProjectGUID="{A1F55901-B8EA-474E-9329-00BA0815E9EC}" Target64Bit="true" ShowHideConfigurations="#x6">
+		<System>
+			<Tasks>
+				<Task Id="3" Priority="20" CycleTime="100000" AmsPort="350" AdtTasks="true">
+					<Name>PlcTask</Name>
+				</Task>
+			</Tasks>
+		</System>
+		<Plc>
+			<Project GUID="{784FA24A-F4C5-48E9-BF0A-F1880E11114A}" Name="MQTT Data Publish Test" PrjFilePath="MQTT Data Publish Test\MQTT Data Publish Test.plcproj" TmcFilePath="MQTT Data Publish Test\MQTT Data Publish Test.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="MQTT Data Publish Test\MQTT Data Publish Test.tmc" TmcHash="{3CC028EC-CB08-5E45-DD8D-44F6B685A307}">
+					<Name>MQTT Data Publish Test Instance</Name>
+					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+					<Vars VarGrpType="1">
+						<Name>PlcTask Inputs</Name>
+						<Var>
+							<Name>MAIN.fbOpticalSensor.dInputBytes</Name>
+							<Comment><![CDATA[Values to calculate nDistance]]></Comment>
+							<Type GUID="{773A0721-0680-A9F8-F5A5-C65F7E80A26F}">ARRAY [0..1] OF BYTE</Type>
+						</Var>
+					</Vars>
+					<Contexts>
+						<Context>
+							<Id>0</Id>
+							<Name>PlcTask</Name>
+							<ManualConfig>
+								<OTCID>#x02010030</OTCID>
+							</ManualConfig>
+							<Priority>20</Priority>
+							<CycleTime>10000000</CycleTime>
+						</Context>
+					</Contexts>
+					<TaskPouOids>
+						<TaskPouOid Prio="20" OTCID="#x08502001"/>
+					</TaskPouOids>
+				</Instance>
+			</Project>
+		</Plc>
+		<Io>
+			<Device Id="2" DevType="111" DevFlags="#x0003" AmsPort="28674" AmsNetId="192.168.2.103.3.1" RemoteName="Device 2 (EtherCAT)" InfoImageId="2">
+				<Name>Device 2 (EtherCAT)</Name>
+				<AddressInfo>
+					<Pnp>
+						<DeviceDesc>Ethernet (Killer E2500 Gigabit Ethernet Controller)</DeviceDesc>
+						<DeviceName>\DEVICE\{A0DDC065-068B-433B-9549-56A6B581EED0}</DeviceName>
+						<DeviceData>b07b25595182</DeviceData>
+					</Pnp>
+				</AddressInfo>
+				<Image Id="1" AddrType="9" ImageType="3">
+					<Name>Image</Name>
+				</Image>
+				<Box Id="1" BoxType="9099">
+					<Name>Box 1 (ifm IO-Link Master AL1330)</Name>
+					<ImageId>114</ImageId>
+					<EtherCAT SlaveType="3" PdiType="#x0006" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="31" FoeType="1" VendorId="#x00000622" ProductCode="#x00001330" RevisionNo="#x00000001" SerialNo="#x0e55fac1" InfoDataAddr="true" InfoDataNetId="true" PortPhys="17" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="ifm IO-Link Master AL1330" Desc="ifm IO-Link Master AL1330" PortABoxInfo="#x00ffffff">
+						<SyncMan>001080003600010001000000000000008000001036010000</SyncMan>
+						<SyncMan>801080003200010002000000000000008000801032010000</SyncMan>
+						<SyncMan>00118000740001000300000000000000c800001174010000</SyncMan>
+						<SyncMan>001d94003000010004000000000000001400001d30010000</SyncMan>
+						<Fmmu>0000000000000000001100020100000001000000000000000000000000000000</Fmmu>
+						<Fmmu>0000000000000000001d00010100000002000000000000000000000000000000</Fmmu>
+						<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
+						<BootStrapData>0010000000100000</BootStrapData>
+						<Pdo Name="TxPDO Mapping of IO-L Inputs Port 1" Index="#x1a00" Flags="#x0000" SyncMan="3">
+							<Entry Name="MAIN.fbOpticalSensor.dInputBytes[0]" Index="#x6000" Sub="#x01">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Name="MAIN.fbOpticalSensor.dInputBytes[1]" Index="#x6000" Sub="#x02">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Name="&lt;empty&gt;_2" Index="#x6000" Sub="#x03">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6000" Sub="#x04">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6000" Sub="#x05">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6000" Sub="#x06">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6000" Sub="#x07">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6000" Sub="#x08">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6000" Sub="#x09">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6000" Sub="#x0a">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6000" Sub="#x0b">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6000" Sub="#x0c">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6000" Sub="#x0d">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6000" Sub="#x0e">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6000" Sub="#x0f">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6000" Sub="#x10">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6000" Sub="#x11">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6000" Sub="#x12">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6000" Sub="#x13">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6000" Sub="#x14">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6000" Sub="#x15">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6000" Sub="#x16">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6000" Sub="#x17">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6000" Sub="#x18">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6000" Sub="#x19">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6000" Sub="#x1a">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6000" Sub="#x1b">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6000" Sub="#x1c">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6000" Sub="#x1d">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6000" Sub="#x1e">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6000" Sub="#x1f">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6000" Sub="#x20">
+								<Type>USINT</Type>
+							</Entry>
+						</Pdo>
+						<Pdo Name="TxPDO Mapping of IO-L Inputs Port 2" Index="#x1a01" Flags="#x0000" SyncMan="3">
+							<Entry Index="#x6010" Sub="#x01">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6010" Sub="#x02">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6010" Sub="#x03">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6010" Sub="#x04">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6010" Sub="#x05">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6010" Sub="#x06">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6010" Sub="#x07">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6010" Sub="#x08">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6010" Sub="#x09">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6010" Sub="#x0a">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6010" Sub="#x0b">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6010" Sub="#x0c">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6010" Sub="#x0d">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6010" Sub="#x0e">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6010" Sub="#x0f">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6010" Sub="#x10">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6010" Sub="#x11">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6010" Sub="#x12">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6010" Sub="#x13">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6010" Sub="#x14">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6010" Sub="#x15">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6010" Sub="#x16">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6010" Sub="#x17">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6010" Sub="#x18">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6010" Sub="#x19">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6010" Sub="#x1a">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6010" Sub="#x1b">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6010" Sub="#x1c">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6010" Sub="#x1d">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6010" Sub="#x1e">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6010" Sub="#x1f">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6010" Sub="#x20">
+								<Type>USINT</Type>
+							</Entry>
+						</Pdo>
+						<Pdo Name="TxPDO Mapping of IO-L Inputs Port 3" Index="#x1a02" Flags="#x0000" SyncMan="3">
+							<Entry Index="#x6020" Sub="#x01">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6020" Sub="#x02">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6020" Sub="#x03">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6020" Sub="#x04">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6020" Sub="#x05">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6020" Sub="#x06">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6020" Sub="#x07">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6020" Sub="#x08">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6020" Sub="#x09">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6020" Sub="#x0a">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6020" Sub="#x0b">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6020" Sub="#x0c">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6020" Sub="#x0d">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6020" Sub="#x0e">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6020" Sub="#x0f">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6020" Sub="#x10">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6020" Sub="#x11">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6020" Sub="#x12">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6020" Sub="#x13">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6020" Sub="#x14">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6020" Sub="#x15">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6020" Sub="#x16">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6020" Sub="#x17">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6020" Sub="#x18">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6020" Sub="#x19">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6020" Sub="#x1a">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6020" Sub="#x1b">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6020" Sub="#x1c">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6020" Sub="#x1d">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6020" Sub="#x1e">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6020" Sub="#x1f">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6020" Sub="#x20">
+								<Type>USINT</Type>
+							</Entry>
+						</Pdo>
+						<Pdo Name="TxPDO Mapping of IO-L Inputs Port 4" Index="#x1a03" Flags="#x0000" SyncMan="3">
+							<Entry Index="#x6030" Sub="#x01">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6030" Sub="#x02">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6030" Sub="#x03">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6030" Sub="#x04">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6030" Sub="#x05">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6030" Sub="#x06">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6030" Sub="#x07">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6030" Sub="#x08">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6030" Sub="#x09">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6030" Sub="#x0a">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6030" Sub="#x0b">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6030" Sub="#x0c">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6030" Sub="#x0d">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6030" Sub="#x0e">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6030" Sub="#x0f">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6030" Sub="#x10">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6030" Sub="#x11">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6030" Sub="#x12">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6030" Sub="#x13">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6030" Sub="#x14">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6030" Sub="#x15">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6030" Sub="#x16">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6030" Sub="#x17">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6030" Sub="#x18">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6030" Sub="#x19">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6030" Sub="#x1a">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6030" Sub="#x1b">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6030" Sub="#x1c">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6030" Sub="#x1d">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6030" Sub="#x1e">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6030" Sub="#x1f">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x6030" Sub="#x20">
+								<Type>USINT</Type>
+							</Entry>
+						</Pdo>
+						<Pdo Name="TxPDO Mapping of New Message Available" Index="#x1a08" Flags="#x0010" SyncMan="3">
+							<Entry Name="New Message Available" Index="#x10f3" Sub="#x04">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry>
+								<Type GUID="{18071995-0000-0000-0000-00200000001F}">ARRAY [0..30] OF BIT</Type>
+							</Entry>
+						</Pdo>
+						<Pdo Name="TxPDO Mapping of Timestamp" Index="#x1a09" Flags="#x0010" SyncMan="3">
+							<Entry Name="Timestamp" Index="#x10f8">
+								<Type>ULINT</Type>
+							</Entry>
+						</Pdo>
+						<Pdo Name="TxPDO Mapping of IO-Link Device Status" Index="#x1a81" Flags="#x0010" SyncMan="3">
+							<Entry Index="#xf100" Sub="#x01">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#xf100" Sub="#x02">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#xf100" Sub="#x03">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#xf100" Sub="#x04">
+								<Type>USINT</Type>
+							</Entry>
+						</Pdo>
+						<Pdo Name="TxPDO Mapping of IO-Link Port Qualifier" Index="#x1a82" Flags="#x0010" SyncMan="3">
+							<Entry Index="#xf101" Sub="#x01">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#xf101" Sub="#x02">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#xf101" Sub="#x03">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#xf101" Sub="#x04">
+								<Type>USINT</Type>
+							</Entry>
+						</Pdo>
+						<Pdo Name="RxPDO Mapping of IO-L Outputs Port 1" Index="#x1600" InOut="1" Flags="#x0000" SyncMan="2">
+							<Entry Index="#x7000" Sub="#x01">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7000" Sub="#x02">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7000" Sub="#x03">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7000" Sub="#x04">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7000" Sub="#x05">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7000" Sub="#x06">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7000" Sub="#x07">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7000" Sub="#x08">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7000" Sub="#x09">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7000" Sub="#x0a">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7000" Sub="#x0b">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7000" Sub="#x0c">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7000" Sub="#x0d">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7000" Sub="#x0e">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7000" Sub="#x0f">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7000" Sub="#x10">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7000" Sub="#x11">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7000" Sub="#x12">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7000" Sub="#x13">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7000" Sub="#x14">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7000" Sub="#x15">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7000" Sub="#x16">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7000" Sub="#x17">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7000" Sub="#x18">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7000" Sub="#x19">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7000" Sub="#x1a">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7000" Sub="#x1b">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7000" Sub="#x1c">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7000" Sub="#x1d">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7000" Sub="#x1e">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7000" Sub="#x1f">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7000" Sub="#x20">
+								<Type>USINT</Type>
+							</Entry>
+						</Pdo>
+						<Pdo Name="RxPDO Mapping of IO-L Outputs Port 2" Index="#x1601" InOut="1" Flags="#x0000" SyncMan="2">
+							<Entry Index="#x7010" Sub="#x01">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7010" Sub="#x02">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7010" Sub="#x03">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7010" Sub="#x04">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7010" Sub="#x05">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7010" Sub="#x06">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7010" Sub="#x07">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7010" Sub="#x08">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7010" Sub="#x09">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7010" Sub="#x0a">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7010" Sub="#x0b">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7010" Sub="#x0c">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7010" Sub="#x0d">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7010" Sub="#x0e">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7010" Sub="#x0f">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7010" Sub="#x10">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7010" Sub="#x11">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7010" Sub="#x12">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7010" Sub="#x13">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7010" Sub="#x14">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7010" Sub="#x15">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7010" Sub="#x16">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7010" Sub="#x17">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7010" Sub="#x18">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7010" Sub="#x19">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7010" Sub="#x1a">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7010" Sub="#x1b">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7010" Sub="#x1c">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7010" Sub="#x1d">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7010" Sub="#x1e">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7010" Sub="#x1f">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7010" Sub="#x20">
+								<Type>USINT</Type>
+							</Entry>
+						</Pdo>
+						<Pdo Name="RxPDO Mapping of IO-L Outputs Port 3" Index="#x1602" InOut="1" Flags="#x0000" SyncMan="2">
+							<Entry Index="#x7020" Sub="#x01">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7020" Sub="#x02">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7020" Sub="#x03">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7020" Sub="#x04">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7020" Sub="#x05">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7020" Sub="#x06">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7020" Sub="#x07">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7020" Sub="#x08">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7020" Sub="#x09">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7020" Sub="#x0a">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7020" Sub="#x0b">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7020" Sub="#x0c">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7020" Sub="#x0d">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7020" Sub="#x0e">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7020" Sub="#x0f">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7020" Sub="#x10">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7020" Sub="#x11">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7020" Sub="#x12">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7020" Sub="#x13">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7020" Sub="#x14">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7020" Sub="#x15">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7020" Sub="#x16">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7020" Sub="#x17">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7020" Sub="#x18">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7020" Sub="#x19">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7020" Sub="#x1a">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7020" Sub="#x1b">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7020" Sub="#x1c">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7020" Sub="#x1d">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7020" Sub="#x1e">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7020" Sub="#x1f">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7020" Sub="#x20">
+								<Type>USINT</Type>
+							</Entry>
+						</Pdo>
+						<Pdo Name="RxPDO Mapping of IO-L Outputs Port 4" Index="#x1603" InOut="1" Flags="#x0000" SyncMan="2">
+							<Entry Index="#x7030" Sub="#x01">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7030" Sub="#x02">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7030" Sub="#x03">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7030" Sub="#x04">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7030" Sub="#x05">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7030" Sub="#x06">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7030" Sub="#x07">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7030" Sub="#x08">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7030" Sub="#x09">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7030" Sub="#x0a">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7030" Sub="#x0b">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7030" Sub="#x0c">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7030" Sub="#x0d">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7030" Sub="#x0e">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7030" Sub="#x0f">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7030" Sub="#x10">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7030" Sub="#x11">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7030" Sub="#x12">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7030" Sub="#x13">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7030" Sub="#x14">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7030" Sub="#x15">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7030" Sub="#x16">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7030" Sub="#x17">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7030" Sub="#x18">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7030" Sub="#x19">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7030" Sub="#x1a">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7030" Sub="#x1b">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7030" Sub="#x1c">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7030" Sub="#x1d">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7030" Sub="#x1e">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7030" Sub="#x1f">
+								<Type>USINT</Type>
+							</Entry>
+							<Entry Index="#x7030" Sub="#x20">
+								<Type>USINT</Type>
+							</Entry>
+						</Pdo>
+					</EtherCAT>
+				</Box>
+				<EtherCAT/>
+			</Device>
+		</Io>
+	</Project>
+	<Mappings>
+		<MappingInfo Identifier="{00000000-2001-0850-0020-500810000403}" Id="#x02030010"/>
+		<OwnerA Name="TIPC^MQTT Data Publish Test^MQTT Data Publish Test Instance">
+			<OwnerB Name="TIID^Device 2 (EtherCAT)^Box 1 (ifm IO-Link Master AL1330)">
+				<Link VarA="PlcTask Inputs^MAIN.fbOpticalSensor.dInputBytes[0]" VarB="TxPDO Mapping of IO-L Inputs Port 1^MAIN.fbOpticalSensor.dInputBytes[0]"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbOpticalSensor.dInputBytes[1]" VarB="TxPDO Mapping of IO-L Inputs Port 1^MAIN.fbOpticalSensor.dInputBytes[1]"/>
+			</OwnerB>
+		</OwnerA>
+	</Mappings>
+</TcSmProject>

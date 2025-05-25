@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_MqttSubClient" Id="{b22460df-a923-4c27-ad81-ff8dd7a49e1a}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_MqttSubClient
+VAR_INPUT
+	stMqttConnect : ST_MqttConnect;
+	TopicToSubscribe : STRING(255);
+	fbMqttMessageQueue: FB_IotMqttMessageQueue;
+	fbMqttMessage: FB_IotMqttMessage;
+END_VAR
+VAR_OUTPUT
+	bGetValue : BOOL;
+END_VAR
+VAR
+	fbMqttClient: FB_IotMqttClient;
+	Subscribed:BOOL;
+    ReceivingTopic:STRING(255);
+	ReceivingData:STRING(255);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[fbMqttClient.sClientId := stMqttConnect.sClientID;
+fbMqttClient.sHostName := stMqttConnect.sHostName;
+fbMqttClient.nHostPort := stMqttConnect.nHostPort;
+fbMqttClient.sTopicPrefix := stMqttConnect.sTopicPrefix;
+fbMqttClient.nKeepAlive := stMqttConnect.nKeepAlive;
+fbMqttClient.ipMessageQueue := fbMqttMessageQueue;
+
+fbMqttClient.Execute(bConnect :=TRUE);
+ 
+IF fbMqttClient.bConnected THEN
+    IF NOT Subscribed THEN
+        Subscribed := fbMqttClient.Subscribe(sTopic:=TopicToSubscribe,
+        eQoS:=TcIotMqttQos.AtMostOnceDelivery);
+    END_IF
+END_IF
+ 
+
+IF fbMqttMessageQueue.Dequeue(fbMessage:=fbMqttMessage) THEN
+	 fbMqttMessage.GetTopic(pTopic:=ADR(ReceivingTopic), nTopicSize:=SIZEOF(ReceivingTopic) );
+	 fbMqttMessage.GetPayload(pPayload:=ADR(ReceivingData), nPayloadSize:=SIZEOF(ReceivingData), bSetNullTermination:=FALSE);
+END_IF
+
+
+IF ReceivingData = 'truee' THEN
+	bGetValue := TRUE;
+ELSE
+	bGetValue := FALSE;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="FB_MqttSubClient">
+      <LineId Id="12" Count="4" />
+      <LineId Id="48" Count="0" />
+      <LineId Id="28" Count="14" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="51" Count="0" />
+      <LineId Id="50" Count="0" />
+      <LineId Id="52" Count="0" />
+      <LineId Id="54" Count="1" />
+      <LineId Id="53" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

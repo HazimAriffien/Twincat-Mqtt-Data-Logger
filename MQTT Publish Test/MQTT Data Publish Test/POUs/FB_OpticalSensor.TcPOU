@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_OpticalSensor" Id="{f69ee9f5-4b6f-447d-aa38-72dc760a5252}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_OpticalSensor
+VAR_OUTPUT
+	nDistance : INT; //cm
+	bValueRangeCheck : BOOL;
+END_VAR
+VAR
+		//Values to calculate nDistance
+	dInputBytes AT %I* : ARRAY[0..1] OF BYTE;
+	dPlaceholder1 : WORD;
+	dPlaceholder2 : WORD;
+	dPLaceholder3 : WORD;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//Bsp: dInputBytes[0] := 1111 1111
+dPlaceholder1 := TO_WORD(dInputBytes[0]);
+//dPlaceholder1 := 0000 0000 1111 1111
+dPlaceholder1 := SHL(dPlaceholder1,8);
+//dPlaceholder1 := 1111 1111 0000 0000
+
+//Bsp: dInputBytes[1] := 1111 1111
+dPlaceholder2 := TO_WORD(dInputBytes[1]);
+//dPlaceholder2 := 0000 0000 1111 1111
+
+bValueRangeCheck := dInputBytes[1].0;
+
+dPlaceholder3 := dPlaceholder1 OR dPlaceholder2;
+//dPlaceholder1 := 1111 1111 0000 0000
+//dPlaceholder2 := 0000 0000 1111 1111
+//dPlaceholder3 := 1111 1111 1111 1111 (nur die erste 12 Bits sind relevant für die Abstandmessung)
+
+dPlaceholder3 := SHR(dPLaceholder3,4);
+//dPlaceholder3 := 0000 1111 1111 1111
+
+nDistance := TO_INT(dPlaceholder3);]]></ST>
+    </Implementation>
+    <LineIds Name="FB_OpticalSensor">
+      <LineId Id="20" Count="19" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

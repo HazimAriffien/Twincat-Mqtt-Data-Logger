@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="F_GetTime" Id="{b93f5f1a-64cf-4b64-951b-029e1f55e3a7}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_GetTime : DATE_AND_TIME
+VAR_INPUT
+END_VAR
+VAR
+	nSystemTime : ULINT;          
+    nSecondsSince1970 : UDINT;    
+    epochOffset : ULINT := 116444736000000000; 
+	timeOffset : UDINT := 7200; // 2 Hours From UTC
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+nSystemTime := F_GetSystemTime();
+
+
+nSecondsSince1970 := ULINT_TO_UDINT((nSystemTime - epochOffset) / 10000000); 
+
+
+nSecondsSince1970 := nSecondsSince1970 + timeOffset;  
+
+
+F_GetTime := UDINT_TO_DT(nSecondsSince1970);]]></ST>
+    </Implementation>
+    <LineIds Name="F_GetTime">
+      <LineId Id="15" Count="9" />
+      <LineId Id="7" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

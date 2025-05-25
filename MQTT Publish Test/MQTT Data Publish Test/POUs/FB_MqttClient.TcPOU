@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_MqttClient" Id="{a8d2a177-d7c5-4bc6-ad29-9e083210c483}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_MqttClient
+VAR_INPUT
+	stMqttConnect : ST_MqttConnect;
+END_VAR
+VAR
+	//Instanz von FB von Tc3_IotBase
+	fbMqttClient : FB_IotMqttClient;
+	fbMqttMessage : FB_IotMqttMessage;
+	fbMqttMessageQueue : FB_IotMqttMessageQueue;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[fbMqttClient.sClientId := stMqttConnect.sClientID;
+fbMqttClient.sHostName := stMqttConnect.sHostName;
+fbMqttClient.nHostPort := stMqttConnect.nHostPort;
+fbMqttClient.sTopicPrefix := stMqttConnect.sTopicPrefix;
+fbMqttClient.nKeepAlive := stMqttConnect.nKeepAlive;
+
+//Optional Parameter
+fbMqttClient.sUserName := stMqttConnect.sUserName;
+fbMqttClient.sUserPassword := stMqttConnect.sUserPassword;
+fbMqttClient.stWill := stMqttConnect.stWill;
+fbMqttClient.stTLS := stMqttConnect.stTLS;
+
+
+fbMqttClient.Execute(TRUE);
+]]></ST>
+    </Implementation>
+    <Method Name="Publish" Id="{4ccfa863-d2f7-434d-970b-79d6b063c589}">
+      <Declaration><![CDATA[METHOD Publish : BOOL
+VAR_INPUT
+	sPublishTopic : STRING;
+	sPayload : STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[fbMqttClient.Publish
+(
+	sTopic := sPublishTopic,
+	pPayload := ADR(sPayload),
+	nPayloadSize := TO_UDINT(LEN(sPayload)),
+	eQoS := 0,
+	bRetain := FALSE,
+	bQueue := FALSE
+);]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_MqttClient">
+      <LineId Id="14" Count="4" />
+      <LineId Id="48" Count="0" />
+      <LineId Id="20" Count="4" />
+      <LineId Id="37" Count="0" />
+      <LineId Id="25" Count="1" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_MqttClient.Publish">
+      <LineId Id="6" Count="7" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <DUT Name="ST_MqttConnect" Id="{89e1ae20-cd5e-40c5-80e7-253deae5add0}">
+    <Declaration><![CDATA[TYPE ST_MqttConnect :
+STRUCT
+	sClientID : STRING(255);
+	sHostName : STRING(255);
+	nHostPort : UINT ;
+	sTopicPrefix : STRING;
+	nKeepAlive : UINT;
+	
+	//Optional Parameters
+	sUserName : STRING(255); 
+	sUserPassword : STRING(255);
+	stWill : ST_IotMqttWill;
+	stTLS : ST_IotMqttTls; 
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
