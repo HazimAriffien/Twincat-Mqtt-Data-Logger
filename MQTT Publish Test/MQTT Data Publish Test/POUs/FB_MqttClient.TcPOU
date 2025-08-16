@@ -1,64 +1,72 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
-  <POU Name="FB_MqttClient" Id="{a8d2a177-d7c5-4bc6-ad29-9e083210c483}" SpecialFunc="None">
+  <POU Name="FB_MqttClient" Id="{86a6db36-3d6c-4ae4-87ab-82cf16b80846}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_MqttClient
 VAR_INPUT
-	stMqttConnect : ST_MqttConnect;
+	sTopicSub	: STRING(255);
+	sTopicPub  	: STRING(255);
+	sPayloadPub : STRING(255);
+END_VAR
+VAR_OUTPUT
 END_VAR
 VAR
-	//Instanz von FB von Tc3_IotBase
-	fbMqttClient : FB_IotMqttClient;
-	fbMqttMessage : FB_IotMqttMessage;
-	fbMqttMessageQueue : FB_IotMqttMessageQueue;
+	fbMqttClient : FB_MyMqtt;
+	bSubscribed	 : BOOL;
+	bSetParameter : BOOL := TRUE;
+	bConnect	: BOOL := TRUE;
+	bGetValue	: BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[fbMqttClient.sClientId := stMqttConnect.sClientID;
-fbMqttClient.sHostName := stMqttConnect.sHostName;
-fbMqttClient.nHostPort := stMqttConnect.nHostPort;
-fbMqttClient.sTopicPrefix := stMqttConnect.sTopicPrefix;
-fbMqttClient.nKeepAlive := stMqttConnect.nKeepAlive;
+      <ST><![CDATA[IF bSetParameter THEN
+    bSetParameter              := FALSE;
+    fbMqttClient.sHostName     := '192.168.2.103';
+    fbMqttClient.nHostPort     := 1883;
+//  fbMqttClient.sClientId     := 'MyTcMqttClient'; 
+    fbMqttClient.sTopicPrefix  := ''; 
+//  fbMqttClient.nKeepAlive    := 60; 
+//  fbMqttClient.sUserName     := ;
+//  fbMqttClient.sUserPassword := ; 
+//  fbMqttClient.stWill        := ; 
+//  fbMqttClient.stTLS         := ;
+END_IF
 
-//Optional Parameter
-fbMqttClient.sUserName := stMqttConnect.sUserName;
-fbMqttClient.sUserPassword := stMqttConnect.sUserPassword;
-fbMqttClient.stWill := stMqttConnect.stWill;
-fbMqttClient.stTLS := stMqttConnect.stTLS;
+fbMqttClient.Execute(bConnect);
 
-
-fbMqttClient.Execute(TRUE);
-]]></ST>
+IF fbMqttClient.bConnected THEN
+	//Check Subscription of the Topic
+	IF NOT bSubscribed THEN
+		bSubscribed := fbMqttClient.Subscribe(sTopic:=sTopicSub, eQoS:=TcIotMqttQos.AtMostOnceDelivery);
+	END_IF
+	
+	//If the payload is True, set bool value to TRUE and initiate publish
+	IF fbMqttClient.sPayloadRcv = 'true' THEN
+		bGetValue := TRUE;
+	ELSIF fbMqttClient.sPayloadRcv = 'false' THEN
+		bGetValue := FALSE;
+	END_IF
+	
+	IF bGetValue THEN
+		fbMqttClient.Publish(sTopic:= sTopicPub,pPayload:= ADR(sPayloadPub), nPayloadSize:= LEN2(ADR(sPayloadPub))+1, eQoS:= TcIotMqttQos.AtMostOnceDelivery, bRetain:= FALSE, bQueue:= FALSE );
+	END_IF
+END_IF]]></ST>
     </Implementation>
-    <Method Name="Publish" Id="{4ccfa863-d2f7-434d-970b-79d6b063c589}">
-      <Declaration><![CDATA[METHOD Publish : BOOL
-VAR_INPUT
-	sPublishTopic : STRING;
-	sPayload : STRING;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[fbMqttClient.Publish
-(
-	sTopic := sPublishTopic,
-	pPayload := ADR(sPayload),
-	nPayloadSize := TO_UDINT(LEN(sPayload)),
-	eQoS := 0,
-	bRetain := FALSE,
-	bQueue := FALSE
-);]]></ST>
-      </Implementation>
-    </Method>
     <LineIds Name="FB_MqttClient">
-      <LineId Id="14" Count="4" />
-      <LineId Id="48" Count="0" />
-      <LineId Id="20" Count="4" />
-      <LineId Id="37" Count="0" />
-      <LineId Id="25" Count="1" />
+      <LineId Id="16" Count="12" />
       <LineId Id="9" Count="0" />
-    </LineIds>
-    <LineIds Name="FB_MqttClient.Publish">
-      <LineId Id="6" Count="7" />
-      <LineId Id="5" Count="0" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="81" Count="0" />
+      <LineId Id="60" Count="2" />
+      <LineId Id="80" Count="0" />
+      <LineId Id="85" Count="0" />
+      <LineId Id="63" Count="3" />
+      <LineId Id="42" Count="0" />
+      <LineId Id="82" Count="0" />
+      <LineId Id="88" Count="0" />
+      <LineId Id="91" Count="0" />
+      <LineId Id="90" Count="0" />
+      <LineId Id="32" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

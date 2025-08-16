@@ -3,125 +3,19 @@
   <POU Name="MAIN" Id="{7453db33-6c9d-480b-b7d3-811b216897b1}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-	fbOpticalSensor : FB_OpticalSensor;
-	eState : (INIT, IDLE, PUBLISH) := INIT;
-	
-	//BOOL Wert für Zustandsmaschine
-	bEntry : BOOL := TRUE;
-	bPublish : BOOL;
-	
-	//Instanz von Bausteine: JsonXML
-	fbJsonSaxWriter : FB_JsonSaxWriter;
-	
-	//Instanz von selbst erstellte FB basiert auf FB von Tc3_IotBase(Publish)
 	fbMqttClient : FB_MqttClient;
-	
-	//Instanz von selbst erstellte FB basiert auf FB von Tc3_IotBase(Subscribe)
-	fbMqttSubClient : FB_MqttSubClient;
-	fbMessageQueue : FB_IotMqttMessageQueue;
-	fbMessage : FB_IotMqttMessage;
-	
-	//Struct von Verbindungsdetails, nur einmal in INIT durchgeführt
-	stMqttConnect : ST_MqttConnect;
-	//Payload String
-	sPayload : STRING;
+	fbOpticalSensor : FB_OpticalSensor;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[CASE eState OF
-	INIT:
-		//ENTRY
-		bEntry := FALSE;
-		
-		//DO
-		stMqttConnect.sClientID := 'Laptop Hazim';
-		stMqttConnect.sHostName := '192.168.2.103';
-		stMqttConnect.sTopicPrefix := '';
-		stMqttConnect.nHostPort := 1883;
-		stMqttConnect.nKeepAlive := 60;
-
-		//EXIT
-		bEntry := TRUE;
-		eState := IDLE;
-	
-	IDLE:
-		//ENTRY
-		bEntry := FALSE;
-		
-		//DO
-		fbMqttSubClient(stMqttConnect := stMqttConnect,TopicToSubscribe := 'Hazim/Mqtt Logger/Optical Sensor/Get Data',fbMqttMessage := fbMessage, fbMqttMessageQueue := fbMessageQueue); //Verbindung mit Broker Zyklisch herstellen
-		//EXIT
-		IF fbMqttSubClient.bGetValue THEN
-			bEntry := TRUE;
-			eState := PUBLISH;
-		END_IF
- 
-	PUBLISH:
-		//ENTRY
-		bEntry := FALSE;
-		
-		//DO
-		fbMqttClient(stMqttConnect := stMqttConnect); //Verbindung mit Broker Zyklisch herstellen
-		//Verbindung mit Broker für Subscription auch in dieser Zustand notwendig
-		fbMqttSubClient(stMqttConnect := stMqttConnect,TopicToSubscribe := 'Hazim/Mqtt Logger/Optical Sensor/Get Data',fbMqttMessage := fbMessage, fbMqttMessageQueue := fbMessageQueue); //Verbindung mit Broker Zyklisch herstellen
-		
-		fbOpticalSensor(); //Zyklische Aufruf der Sensor Funktonsbausteine
-		
-		//Json Object Erstellen und als Json String übergeben
-		fbJsonSaxWriter.ResetDocument();
-		fbJsonSaxWriter.StartObject();
-		fbJsonSaxWriter.AddKeyDateTime('Timestamp',F_GetTime());
-		fbJsonSaxWriter.AddKeyNumber('Distance',fbOpticalSensor.nDistance);
-		fbJsonSaxWriter.AddKeyBool('Distance Range Check',fbOpticalSensor.bValueRangeCheck);
-		fbJsonSaxWriter.EndObject();
-		sPayload := fbJsonSaxWriter.GetDocument();
-		
-		//Zu MQTT Broker Publish
-		fbMqttClient.Publish(sPublishTopic := 'Hazim/Mqtt Logger/Optical Sensor',sPayload := sPayload);
-		
-		//EXIT
-		IF NOT fbMqttSubClient.bGetValue THEN
-			bEntry := TRUE;
-			eState := IDLE;
-		END_IF
-		
-END_CASE
+      <ST><![CDATA[fbOpticalSensor();
+fbMqttClient(sTopicSub := 'Hazim/Mqtt Logger/Optical Sensor/Get Data',sTopicPub := 'Hazim/Mqtt Logger/Optical Sensor/Data',sPayloadPub := TO_STRING(fbOpticalSensor.nDistance));
 ]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="2" Count="0" />
-      <LineId Id="20" Count="0" />
-      <LineId Id="22" Count="3" />
-      <LineId Id="30" Count="3" />
-      <LineId Id="29" Count="0" />
-      <LineId Id="35" Count="0" />
-      <LineId Id="34" Count="0" />
-      <LineId Id="36" Count="7" />
-      <LineId Id="106" Count="0" />
-      <LineId Id="45" Count="0" />
-      <LineId Id="47" Count="0" />
-      <LineId Id="49" Count="0" />
-      <LineId Id="51" Count="0" />
-      <LineId Id="50" Count="0" />
-      <LineId Id="48" Count="0" />
-      <LineId Id="52" Count="5" />
-      <LineId Id="120" Count="0" />
-      <LineId Id="59" Count="0" />
-      <LineId Id="69" Count="0" />
-      <LineId Id="121" Count="0" />
-      <LineId Id="72" Count="1" />
-      <LineId Id="61" Count="2" />
-      <LineId Id="60" Count="0" />
-      <LineId Id="64" Count="2" />
-      <LineId Id="75" Count="1" />
-      <LineId Id="70" Count="0" />
-      <LineId Id="116" Count="0" />
-      <LineId Id="80" Count="2" />
-      <LineId Id="84" Count="0" />
-      <LineId Id="83" Count="0" />
-      <LineId Id="26" Count="0" />
+      <LineId Id="160" Count="0" />
       <LineId Id="21" Count="0" />
-      <LineId Id="7" Count="0" />
+      <LineId Id="150" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>
