@@ -30,7 +30,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{784FA24A-F4C5-48E9-BF0A-F1880E11114A}" Name="MQTT Data Publish Test" PrjFilePath="MQTT Data Publish Test\MQTT Data Publish Test.plcproj" TmcFilePath="MQTT Data Publish Test\MQTT Data Publish Test.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="MQTT Data Publish Test\MQTT Data Publish Test.tmc" TmcHash="{5D3FDAA9-1722-6640-8714-DE47BAE0C4F7}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="MQTT Data Publish Test\MQTT Data Publish Test.tmc" TmcHash="{0D381838-9826-F131-E5E5-D6F873FAC9DB}">
 					<Name>MQTT Data Publish Test Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
