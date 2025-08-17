@@ -8,7 +8,7 @@
     <DownloadApplicationInfo>true</DownloadApplicationInfo>
     <WriteProductVersion>true</WriteProductVersion>
     <GenerateTpy>false</GenerateTpy>
-    <Name>MQTT_Data_Publish_Test</Name>
+    <Name>MQTT_OID_254</Name>
     <ProgramVersion>3.1.4024.0</ProgramVersion>
     <Application>{aeec3960-d7ab-43e4-8046-7e6960244919}</Application>
     <TypeSystem>{7df28ea6-3473-466e-820a-fc0411c95c3d}</TypeSystem>
