@@ -26,3 +26,7 @@ For me, this was about:
 * Mosquitto MQTT Broker
 * Node-RED (with dashboard Palette Installed)
 * MQTT Explorer (optional for debugging)
+
+## TwinCat Solution and Function Blocks Created
+Below is a detailed explanation of the Function Blocks that are created in the TwinCat Solution that enables the reading of the Sensor Value and the Connection with the MQTT Broker.
+
