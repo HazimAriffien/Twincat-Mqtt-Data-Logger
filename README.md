@@ -30,3 +30,25 @@ For me, this was about:
 ## TwinCat Solution and Function Blocks Created
 Below is a detailed explanation of the Function Blocks that are created in the TwinCat Solution that enables the reading of the Sensor Value and the Connection with the MQTT Broker.
 
+![Function Blocks in TwinCat](https://github.com/HazimAriffien/Twincat-Mqtt-Data-Logger/blob/main/Pics%20%26%20Vids/MQTT_TwinCat_Function_Blocks.jpg)
+
+### FB_OpticalSensor
+This block links the PLC variables to the I/O data from EtherCAT and the IO-Link master. It reads the raw process data bits from the sensor and applies bit shifting to decode them. The output is the sensor’s distance value as an integer.
+### FB_MyMqtt
+This block extends Beckhoff’s FB_IotMqttClient to add custom behavior. It implements a callback method that ensures real-time handling of subscribed MQTT messages. This allows the PLC to react immediately to incoming data.
+### FB_MqttClient
+This block manages the overall MQTT connection and communication. It uses an instance of FB_MyMqtt to interact with the broker, handling both subscribe and publish operations. It also prepares the topic names and payloads for publishing.
+
+## MQTT Communication Architecture
+Below is a simple illustration of the MQTT Communication between three parties. TwinCat PLC, Mosquitto Broker and Node-Red
+
+![MQTT Connection](https://github.com/HazimAriffien/Twincat-Mqtt-Data-Logger/blob/main/Pics%20%26%20Vids/MQTT_Connection_Pic.jpg)
+
+In the implemented system, the optical sensor data is transmitted using the MQTT protocol, which follows a publish/subscribe model. The system consists of three components: the PLC (Hazim), the Mosquitto broker, and Node-RED. The PLC subscribes to the topic ***Hazim/Mqtt Logger/Optical Sensor/Get Data*** and only publishes sensor readings to ***Hazim/Mqtt Logger/Optical Sensor/Data*** when it receives a request signal  from Node-RED. Node-RED acts as the publisher for the topic ***Hazim/Mqtt Logger/Optical Sensor/Get Data*** and simultaneously subscribes to the topic ***Hazim/Mqtt Logger/Optical Sensor/Data*** to receive and visualize the sensor data on a dashboard. The Mosquitto broker handles all message routing between publisher and subscriber, enabling a decoupled, on-demand data transmission system where sensor data is only published when explicitly requested.
+
+## Conclusion and Results
+In conclusion, it was possible to display the optical sensor values in real time in Node-RED, with the PLC reacting according to the request signal sent to the Get Data topic. To demonstrate the results, a short video was recorded, which can be downloaded [here](https://github.com/HazimAriffien/Twincat-Mqtt-Data-Logger/blob/main/Pics%20%26%20Vids/MQTT_Result_Video.mp4). Overall, this small project was a success and provided valuable hands-on experience with MQTT communication, PLC programming, and real-time data visualization. It offered a great learning experience for me to get used to TwinCat and PLC Programming.
+
+
+
+
